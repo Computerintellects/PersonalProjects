@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+        "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+    <form-beans>
+        <form-bean name="studentForm" type="com.cnsi.examination.results.form.StudentForm"/>
+        <form-bean name="LoginForm"
+			type="com.cnsi.examination.results.action.LoginForm" />
+    </form-beans>
+
+    <action-mappings>
+		<action path="/login" type="com.cnsi.examination.results.action.LoginAction"
+			name="LoginForm" scope="request" validate="true" input="/login.jsp">
+			<forward name="success" path="/studentProcess.do?dispatch=getStudents" />
+
+			<forward name="failure" path="/error.jsp" />
+
+		</action>
+        <action
+                path="/studentSetUp"
+                name="studentForm"
+                type="com.cnsi.examination.results.action.StudentAction"
+                scope="request"
+                parameter="dispatch">
+            <forward name="success" path="/studentRegForm.jsp"/>
+        </action>
+
+        <action
+                path="/studentProcess"
+                name="studentForm"
+                type="com.cnsi.examination.results.action.StudentAction"
+                scope="request"
+                parameter="dispatch">
+            <forward name="failure" path="/studentRegForm.jsp"/>
+            <forward name="success" path="/students.jsp"/>
+        </action>
+
+    </action-mappings>
+
+    <message-resources parameter="MessageResources" null="false"/>
+
+</struts-config>
+
